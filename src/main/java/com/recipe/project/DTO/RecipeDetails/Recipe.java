@@ -2,12 +2,12 @@ package com.recipe.project.DTO.RecipeDetails;
 
 import java.util.List;
 
-public class RecipeDetailsDTO {
+public class Recipe {
     private int servings;
     private int readyInMinutes;
     private String image;
-    private List<IngredientDTO> extendedIngredients;
-    private String instructions;
+    private List<ExtendedIngredient> extendedIngredients;
+    private List<AnalyzedInstruction> analyzedInstructions;
 
     public int getServings() {
         return servings;
@@ -33,20 +33,20 @@ public class RecipeDetailsDTO {
         this.image = image;
     }
 
-    public List<IngredientDTO> getExtendedIngredients() {
+    public List<ExtendedIngredient> getExtendedIngredients() {
         return extendedIngredients;
     }
 
-    public void setExtendedIngredients(List<IngredientDTO> extendedIngredients) {
+    public void setExtendedIngredients(List<ExtendedIngredient> extendedIngredients) {
         this.extendedIngredients = extendedIngredients;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public List<AnalyzedInstruction> getAnalyzedInstructions() {
+        return analyzedInstructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setAnalyzedInstructions(List<AnalyzedInstruction> analyzedInstructions) {
+        this.analyzedInstructions = analyzedInstructions;
     }
 
 }
