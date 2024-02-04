@@ -80,8 +80,4 @@ public class Week {
 	public void setSunday(Day sunday) {
 		this.sunday = sunday;
 	}
-
-	
-    // getters and setters
-    // You can use Lombok to automatically generate getters and setters
 }

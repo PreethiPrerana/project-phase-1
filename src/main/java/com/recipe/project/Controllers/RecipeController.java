@@ -1,4 +1,4 @@
-package com.recipe.project.web;
+package com.recipe.project.Controllers;
 
 import java.util.List;
 
