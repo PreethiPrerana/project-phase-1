@@ -2,6 +2,7 @@ package com.recipe.project.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,8 @@ import com.recipe.project.DTO.RecipeDetails.Recipe;
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
-    // @Value("${spoonacular.api.key}")  // Define your API key in application.properties
-    private String apiKey="668459505d964573bdefa9396899795c";
+    @Value("${apikey}")  // Define your API key in application.properties
+    private String apiKey;
 
     private final RestTemplate restTemplate;
 
