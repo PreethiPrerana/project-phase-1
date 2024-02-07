@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.recipe.project.DTO.Day.Day;
 import com.recipe.project.DTO.Day.DayResponse;
+import com.recipe.project.DTO.Week.Week;
 import com.recipe.project.DTO.Week.WeekResponse;
 
 @RestController
@@ -41,6 +43,16 @@ public class MealController {
 				.toUri();
 
 		ResponseEntity<DayResponse> response = rt.getForEntity(uri, DayResponse.class);
+		if (response.getStatusCode().is2xxSuccessful()) {
+			DayResponse dayResponse = response.getBody();
+			if (dayResponse != null && dayResponse.getMeals() != null) {
+				dayResponse.getMeals().forEach(meal -> {
+					int id = meal.getId();
+					String imageURL = "https://spoonacular.com/recipeImages/" + id + "-312x231.jpg";
+					meal.setSourceUrl(imageURL);
+				});
+			}
+		}
 		return response;
 	}
 
@@ -61,8 +73,28 @@ public class MealController {
 				.build()
 				.toUri();
 
-		ResponseEntity<WeekResponse> response = restTemplate.getForEntity(uri, WeekResponse.class);
+		ResponseEntity<WeekResponse> responseEntity = restTemplate.getForEntity(uri, WeekResponse.class);
+		if (responseEntity.getStatusCode().is2xxSuccessful()) {
+			WeekResponse weekResponse = responseEntity.getBody();
+			if (weekResponse != null && weekResponse.getWeek() != null) {
+				updateMealSourceUrls(weekResponse.getWeek());
+			}
+		}
 
-		return response;
+		return responseEntity;
+	}
+
+	private void updateMealSourceUrls(Week week) {
+		Day[] days = { week.getMonday(), week.getTuesday(), week.getWednesday(),
+				week.getThursday(), week.getFriday(), week.getSaturday(), week.getSunday() };
+		for (Day day : days) {
+			if (day != null) {
+				day.getMeals().forEach(meal -> {
+					int id = meal.getId();
+					String imageURL = "https://spoonacular.com/recipeImages/" + id + "-312x231.jpg";
+					meal.setSourceUrl(imageURL);
+				});
+			}
+		}
 	}
 }

@@ -21,6 +21,9 @@ public class UserMealPlanService {
         userMealPlan.setData(data);
         userMealPlanRepository.save(userMealPlan);
     }
+    public List<UserMealPlan> getUserMealPlansByUserIdAndType(String userId, String type) {
+        return userMealPlanRepository.findByUserIdAndType(userId, type);
+    }
 }
 
 
